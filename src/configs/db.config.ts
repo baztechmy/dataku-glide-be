@@ -19,7 +19,7 @@ export const User = db.define('users', {
     staff_id: { type: DataTypes.VARCHAR(255), allowNull: false },
     created_at: { type: DataTypes.TIMESTAMP, allowNull: true },
     updated_at: { type: DataTypes.TIMESTAMP, allowNull: true },
-    created_by: { type: DataTypes.TIMESTAMP, allowNull: true },
+    created_by: { type: DataTypes.INTEGER, allowNull: true },
 });
 
 export const UserPassword = db.define('user_passwords', {

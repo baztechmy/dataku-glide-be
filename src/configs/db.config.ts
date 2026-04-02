@@ -28,3 +28,30 @@ export const UserPassword = db.define('user_passwords', {
 });
 UserPassword.setForeignKey(User, 'user_id');
 
+export const UserActivityLogs = db.define('user_activity_logs', {
+    ual_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },
+    ual_activity: { type: DataTypes.VARCHAR(511), allowNull: false },
+    ual_ip: { type: DataTypes.VARCHAR(255), allowNull: false },
+    ual_date: { type: DataTypes.TIMESTAMP, allowNull: false },
+    user_id: { type: DataTypes.INTEGER, allowNull: false },
+});
+UserActivityLogs.setForeignKey(User, 'user_id');
+
+export const MonitorTank = db.define('monitor_tanks', {
+    mt_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },
+    mt_name: { type: DataTypes.VARCHAR(255), allowNull: false },
+    mt_height: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
+    mt_diameter: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
+    sensor_ids: { type: DataTypes.TEXT, allowNull: false, },
+    gateway_id: { type: DataTypes.SERIAL, allowNull: false },
+});
+
+export const MonitorTankLog = db.define('monitor_tank_logs', {
+    mtl_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },
+    mtl_raw_data1: { type: DataTypes.TEXT, allowNull: false },
+    mtl_raw_data2: { type: DataTypes.TEXT, allowNull: false },
+    mtl_level: { type: DataTypes.VARCHAR(511), allowNull: false },
+    mtl_temp: { type: DataTypes.VARCHAR(511), allowNull: false },
+    mtl_humidity: { type: DataTypes.VARCHAR(511), allowNull: false },
+    mt_id: { type: DataTypes.INTEGER, allowNull: false },
+});

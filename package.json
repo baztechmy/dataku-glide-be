@@ -1,0 +1,28 @@
+{
+  "name": "dataku-glide",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "b": "tsc",
+    "r": "node dist/app.js",
+    "br": "tsc && node dist/app.js",
+    "tbr": "tsc && node dist/test/test.js",
+    "sinitbr": "tsc && node dist/scripts/env.script.js && node dist/scripts/db.script.js",
+    "senvbr": "tsc && node dist/scripts/env.script.js",
+    "sdbbr": "tsc && node dist/scripts/db.script.js"
+  },
+  "keywords": [],
+  "author": "harrypoggers25",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/pg": "^8.16.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@harrypoggers25/color-utils": "^1.0.1",
+    "@harrypoggers25/db-postgresql": "^1.2.0",
+    "@harrypoggers25/env": "^1.0.0",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

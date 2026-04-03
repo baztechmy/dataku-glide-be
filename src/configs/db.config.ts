@@ -43,7 +43,7 @@ export const MonitorTank = db.define('monitor_tanks', {
     mt_height: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
     mt_diameter: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
     sensor_ids: { type: DataTypes.TEXT, allowNull: false, },
-    gateway_id: { type: DataTypes.SERIAL, allowNull: false },
+    gateway_id: { type: DataTypes.VARCHAR(255), allowNull: false },
 });
 
 export const MonitorTankLog = db.define('monitor_tank_logs', {
@@ -53,5 +53,6 @@ export const MonitorTankLog = db.define('monitor_tank_logs', {
     mtl_level: { type: DataTypes.VARCHAR(511), allowNull: false },
     mtl_temp: { type: DataTypes.VARCHAR(511), allowNull: false },
     mtl_humidity: { type: DataTypes.VARCHAR(511), allowNull: false },
+    mtl_date: { type: DataTypes.TIMESTAMP, allowNull: false },
     mt_id: { type: DataTypes.INTEGER, allowNull: false },
 });

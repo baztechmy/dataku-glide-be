@@ -12,7 +12,7 @@ const userRouter = Router();
 userRouter.route('/')
     .post(createUserHandler)
     .get(findAllUserHandler);
-userRouter.route('/:userId')
+userRouter.route('/:user_id')
     .get(findUserHandler)
     .patch(updateUserHandler)
     .delete(deleteUserHandler);

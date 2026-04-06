@@ -23,7 +23,7 @@ export const createUserHandler = Route.asyncHandler(async (req, res) => {
 });
 
 export const findUserHandler = Route.asyncHandler(async (req, res) => {
-    const user_id = +req.params.userId;
+    const user_id = +req.params.user_id;
     const user = await User.findByPk(user_id);
     if (!user) throw new Error(`Failed to find user [${user_id}]`);
 
@@ -38,7 +38,7 @@ export const findAllUserHandler = Route.asyncHandler(async (req, res) => {
 });
 
 export const updateUserHandler = Route.asyncHandler(async (req, res) => {
-    const user_id = +req.params.userId;
+    const user_id = +req.params.user_id;
     const { user_name, user_email, user_password, user_phone, user_role, staff_id, created_by } = req.body;
     const updated_at = new Date();
 
@@ -54,7 +54,7 @@ export const updateUserHandler = Route.asyncHandler(async (req, res) => {
 });
 
 export const deleteUserHandler = Route.asyncHandler(async (req, res) => {
-    const user_id = +req.params.userId;
+    const user_id = +req.params.user_id;
     const user = await User.deleteByPk(user_id);
     if (!user) throw new Error(`Failed to delete user [${user_id}]`);
 

@@ -3,6 +3,7 @@ import Route from "@harrypoggers25/route";
 
 // CONFIGS
 import { db, MonitorTankLog } from "../configs/db.config";
+import { Pool } from "@harrypoggers25/db-postgresql";
 
 function generateDate(year: number, month: number, day: number): string {
     const date = new Date(year, month - 1, day);
@@ -24,6 +25,22 @@ export const findAllMonitorTankLogHandler = Route.asyncHandler(async (req, res) 
     if (!mtls) throw new Error(`Failed to find all monitor tank logs`);
 
     res.status(200).json(mtls);
+});
+
+export const findAllMonitorTankLogByDateHandler = Route.asyncHandler(async (req, res) => {
+    if (['mtl_year', 'mtl_month'].some(param => Number.isNaN(+req.params[param]))) {
+        res.status(400);
+        throw new Error(`Failed to find all monitor tanks by date [${req.params.mtl_year},${req.params.mtl_month}]`);
+    }
+
+    const [year, month] = [+req.params.mtl_year, +req.params.mtl_month];
+    const response = await db.pool.query(
+        'SELECT * FROM monitor_tank_logs ' +
+        `WHERE mtl_date >= DATE '${generateDate(year, month, 1)}' AND mtl_date <  DATE '${generateDate(year, month + 1, 1)}' ORDER BY mtl_id ASC;`
+    );
+    if (!Pool.isSuccess(response)) throw new Error(`Failed to find all monitor tank logs [${year},${month}]`);
+
+    res.status(200).json(response.rows);
 });
 
 export const deleteMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {

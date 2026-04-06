@@ -3,7 +3,7 @@ import App from "@harrypoggers25/app-express";
 
 // CONFIGS
 import env from "./configs/env.config";
-// import router from "./routers";
+import router from "./routers";
 import { db } from "./configs/db.config";
 
 App.listen({
@@ -11,7 +11,7 @@ App.listen({
     version: '1.0.0 build 1',
     cors: [env.ORIGIN_URL],
     beforeListen: async (app) => {
-        // app.use('/', router);
+        app.use('/', router);
     },
     callback: async (app, server) => {
         await db.sync({ alter: false });

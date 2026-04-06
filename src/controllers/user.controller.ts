@@ -43,10 +43,10 @@ export const updateUserHandler = Route.asyncHandler(async (req, res) => {
     const updated_at = new Date();
 
     const transaction = await db.transaction({ rollbackOnError: true });
-    const userPassword = UserPassword.update({ user_password: hashSync(user_password, 10) }, { transaction });
+    const userPassword = UserPassword.update({ user_password: hashSync(user_password, 10) }, { where: { user_id }, transaction });
     if (!userPassword) throw new Error(`Failed to update user password [${user_id}]`);
 
-    const user = await User.updateByPk(user_id, { user_name, user_email, user_phone, user_role, staff_id, updated_at, created_by });
+    const user = await User.updateByPk(user_id, { user_name, user_email, user_phone, user_role, staff_id, updated_at, created_by }, { transaction });
     if (!user) throw new Error(`Failed to update user [${user_id}]`);
 
     await transaction.commit();

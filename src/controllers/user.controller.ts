@@ -1,0 +1,63 @@
+// MODULES
+import Route from "@harrypoggers25/route";
+
+// CONFIGS
+import { db, User, UserPassword } from "../configs/db.config";
+
+export const createUserHandler = Route.asyncHandler(async (req, res) => {
+    const currentDate = new Date();
+
+    const { user_id, user_name, user_email, user_password, user_phone, user_role, staff_id, created_by } = req.body;
+    const [created_at, updated_at] = [currentDate, currentDate];
+
+    const transaction = await db.transaction({ rollbackOnError: true });
+    const user = await User.create({ user_id, user_name, user_email, user_phone, user_role, staff_id, created_at, updated_at, created_by }, { transaction });
+    if (!user) throw new Error('Failed to create new user');
+
+    const userPassword = await UserPassword.create({ user_password, user_id: user.user_id }, { transaction });
+    if (!userPassword) throw new Error('Failed to create new user password');
+
+    await transaction.commit();
+    res.status(201).json(user);
+});
+
+export const findUserHandler = Route.asyncHandler(async (req, res) => {
+    const user_id = +req.params.userId;
+    const user = await User.findByPk(user_id);
+    if (!user) throw new Error(`Failed to find user [${user_id}]`);
+
+    res.status(200).json(user);
+});
+
+export const findAllUserHandler = Route.asyncHandler(async (req, res) => {
+    const users = await User.find();
+    if (!users) throw new Error(`Failed to find all users`);
+
+    res.status(200).json(users);
+});
+
+export const updateUserHandler = Route.asyncHandler(async (req, res) => {
+    const currentDate = new Date();
+
+    const user_id = +req.params.userId;
+    const { user_name, user_email, user_password, user_phone, user_role, staff_id, created_by } = req.body;
+    const updated_at = currentDate;
+
+    const transaction = await db.transaction({ rollbackOnError: true });
+    const userPassword = UserPassword.update({ user_password }, { transaction });
+    if (!userPassword) throw new Error(`Failed to update user password [${user_id}]`);
+
+    const user = await User.updateByPk(user_id, { user_name, user_email, user_phone, user_role, staff_id, updated_at, created_by });
+    if (!user) throw new Error(`Failed to update user [${user_id}]`);
+
+    await transaction.commit();
+    res.status(200).json(user);
+});
+
+export const deleteUserHandler = Route.asyncHandler(async (req, res) => {
+    const user_id = +req.params.userId;
+    const user = await User.deleteByPk(user_id);
+    if (!user) throw new Error(`Failed to delete user [${user_id}]`);
+
+    res.status(200).json(user);
+});

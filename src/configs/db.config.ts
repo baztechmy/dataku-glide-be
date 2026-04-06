@@ -56,3 +56,4 @@ export const MonitorTankLog = db.define('monitor_tank_logs', {
     mtl_date: { type: DataTypes.TIMESTAMP, allowNull: false },
     mt_id: { type: DataTypes.INTEGER, allowNull: false },
 });
+MonitorTankLog.setForeignKey(MonitorTank, 'mt_id');

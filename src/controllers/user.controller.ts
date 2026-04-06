@@ -37,11 +37,9 @@ export const findAllUserHandler = Route.asyncHandler(async (req, res) => {
 });
 
 export const updateUserHandler = Route.asyncHandler(async (req, res) => {
-    const currentDate = new Date();
-
     const user_id = +req.params.userId;
     const { user_name, user_email, user_password, user_phone, user_role, staff_id, created_by } = req.body;
-    const updated_at = currentDate;
+    const updated_at = new Date();
 
     const transaction = await db.transaction({ rollbackOnError: true });
     const userPassword = UserPassword.update({ user_password }, { transaction });

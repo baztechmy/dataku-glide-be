@@ -2,6 +2,8 @@
 import Env from "@harrypoggers25/env";
 
 const env = Env.define({
+    ORIGIN_URL: { type: 'string' },
+    PORT: { type: 'number' },
     TOKEN_SECRET: { type: 'string' },
     DB_HOST: { type: 'string', default: 'localhost' },
     DB_USER: { type: 'string' },

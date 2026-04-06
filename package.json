@@ -16,10 +16,13 @@
   "author": "harrypoggers25",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/pg": "^8.16.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@harrypoggers25/app-express": "^1.0.1",
     "@harrypoggers25/color-utils": "^1.0.1",
     "@harrypoggers25/db-postgresql": "^1.2.0",
     "@harrypoggers25/env": "^1.0.0",

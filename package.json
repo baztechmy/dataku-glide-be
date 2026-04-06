@@ -26,6 +26,8 @@
     "@harrypoggers25/color-utils": "^1.0.1",
     "@harrypoggers25/db-postgresql": "^1.2.0",
     "@harrypoggers25/env": "^1.0.0",
+    "@harrypoggers25/route": "^1.0.4",
+    "bcrypt-ts": "^8.0.1",
     "jsonwebtoken": "^9.0.3"
   }
 }

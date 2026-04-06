@@ -22,7 +22,7 @@ export const findAllUserActivityLogHandler = Route.asyncHandler(async (req, res)
 });
 
 export const deleteUserActivityLogHandler = Route.asyncHandler(async (req, res) => {
-    const ual_id = +req.params.ualId;
+    const ual_id = +req.params.ual_id;
     const ual = await UserActivityLogs.deleteByPk(ual_id);
     if (!ual) throw new Error(`Failed to delete user activity log [${ual_id}]`);
 

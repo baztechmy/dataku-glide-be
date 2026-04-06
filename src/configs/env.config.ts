@@ -5,6 +5,7 @@ const env = Env.define({
     ORIGIN_URL: { type: 'string' },
     PORT: { type: 'number' },
     TOKEN_SECRET: { type: 'string' },
+    BCRYPT_SALT: { type: 'number', default: 10 },
     DB_HOST: { type: 'string', default: 'localhost' },
     DB_USER: { type: 'string' },
     DB_PASSWORD: { type: 'string' },

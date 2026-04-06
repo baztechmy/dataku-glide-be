@@ -3,6 +3,7 @@ import Route from "@harrypoggers25/route";
 
 // CONFIGS
 import { db, User, UserPassword } from "../configs/db.config";
+import { hashSync } from "bcrypt-ts";
 
 export const createUserHandler = Route.asyncHandler(async (req, res) => {
     const currentDate = new Date();
@@ -14,7 +15,7 @@ export const createUserHandler = Route.asyncHandler(async (req, res) => {
     const user = await User.create({ user_id, user_name, user_email, user_phone, user_role, staff_id, created_at, updated_at, created_by }, { transaction });
     if (!user) throw new Error('Failed to create new user');
 
-    const userPassword = await UserPassword.create({ user_password, user_id: user.user_id }, { transaction });
+    const userPassword = await UserPassword.create({ user_password: hashSync(user_password, 10), user_id: user.user_id }, { transaction });
     if (!userPassword) throw new Error('Failed to create new user password');
 
     await transaction.commit();
@@ -42,7 +43,7 @@ export const updateUserHandler = Route.asyncHandler(async (req, res) => {
     const updated_at = new Date();
 
     const transaction = await db.transaction({ rollbackOnError: true });
-    const userPassword = UserPassword.update({ user_password }, { transaction });
+    const userPassword = UserPassword.update({ user_password: hashSync(user_password, 10) }, { transaction });
     if (!userPassword) throw new Error(`Failed to update user password [${user_id}]`);
 
     const user = await User.updateByPk(user_id, { user_name, user_email, user_phone, user_role, staff_id, updated_at, created_by });

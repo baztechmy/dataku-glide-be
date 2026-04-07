@@ -22,7 +22,7 @@ export const User = db.define('users', {
     created_by: { type: DataTypes.INTEGER, allowNull: true },
 });
 
-export const UserSecret = db.define('user_passwords', {
+export const UserSecret = db.define('user_secrets', {
     user_password: { type: DataTypes.VARCHAR(255), allowNull: false },
     user_refresh_token: { type: DataTypes.TEXT, allowNull: true },
     user_id: { type: DataTypes.INTEGER, allowNull: false, unique: true }

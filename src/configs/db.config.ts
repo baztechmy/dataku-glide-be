@@ -24,6 +24,7 @@ export const User = db.define('users', {
 
 export const UserSecret = db.define('user_passwords', {
     user_password: { type: DataTypes.VARCHAR(255), allowNull: false },
+    user_refresh_token: { type: DataTypes.VARCHAR(255), allowNull: true },
     user_id: { type: DataTypes.INTEGER, allowNull: false, unique: true }
 });
 UserSecret.setForeignKey(User, 'user_id');

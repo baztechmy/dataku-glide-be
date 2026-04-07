@@ -15,8 +15,8 @@ export const createUserHandler = Route.asyncHandler(async (req, res) => {
     const user = await User.create({ user_id, user_name, user_email, user_phone, user_role, staff_id, created_at, updated_at, created_by }, { transaction });
     if (!user) throw new Error('Failed to create new user');
 
-    const userPassword = await UserSecret.create({ user_password: hashSync(user_password, 10), user_id: user.user_id }, { transaction });
-    if (!userPassword) throw new Error('Failed to create new user password');
+    const userSecret = await UserSecret.create({ user_password: hashSync(user_password, 10), user_id: user.user_id }, { transaction });
+    if (!userSecret) throw new Error('Failed to create new user password');
 
     await transaction.commit();
     res.status(201).json(user);
@@ -45,8 +45,8 @@ export const updateUserHandler = Route.asyncHandler(async (req, res) => {
     const transaction = await db.transaction({ rollbackOnError: true });
 
     if (user_password) {
-        const userPassword = UserSecret.update({ user_password: hashSync(user_password, 10) }, { where: { user_id }, transaction });
-        if (!userPassword) throw new Error(`Failed to update user password [${user_id}]`);
+        const userSecret = UserSecret.update({ user_password: hashSync(user_password, 10) }, { where: { user_id }, transaction });
+        if (!userSecret) throw new Error(`Failed to update user password [${user_id}]`);
     }
 
     const user = await User.updateByPk(user_id, { user_name, user_email, user_phone, user_role, staff_id, updated_at, created_by }, { transaction });

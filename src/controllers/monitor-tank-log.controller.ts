@@ -40,7 +40,9 @@ export const findAllMonitorTankLogByDateHandler = Route.asyncHandler(async (req,
     );
     if (!Pool.isSuccess(response)) throw new Error(`Failed to find all monitor tank logs [${year},${month}]`);
 
-    res.status(200).json(response.rows);
+    const mtls = response.rows as Array<ReturnType<typeof MonitorTankLog.getEmptyModel>>
+
+    res.status(200).json(mtls);
 });
 
 export const deleteMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {

@@ -26,7 +26,7 @@ export const loginUserHandler = Route.asyncHandler(async (req, res) => {
     if (!userSecrets.length) throw new Error(`Failed to login user [${user_email}]. User secret not found`);
 
     const userSecret = userSecrets[0];
-    if (compareSync(user_password, userSecret.user_password)) throw new Error(`Failed to login user [${user_email}]. Password is incorrect`);
+    if (!compareSync(user_password, userSecret.user_password)) throw new Error(`Failed to login user [${user_email}]. Password is incorrect`);
 
     const login_id = Date.now();
     const payload = { user_id, user_email, user_name, user_role, login_id };
@@ -39,7 +39,7 @@ export const loginUserHandler = Route.asyncHandler(async (req, res) => {
     const newUserSecret = await UserSecret.update({ user_refresh_token: tokens.refresh.token }, { where: { user_id } });
     if (!newUserSecret) throw new Error(`Failed to login user [${user_email}]. Unable to update user refresh token`);
 
-    res.cookie('access_token', tokens.access, { httpOnly: true, secure: true, sameSite: 'strict' });
+    res.cookie('access_token', tokens.access.token, { httpOnly: true, secure: true, sameSite: 'strict' });
 
     res.status(200).json(tokens);
 });

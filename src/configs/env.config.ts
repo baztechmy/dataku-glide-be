@@ -4,7 +4,10 @@ import Env from "@harrypoggers25/env";
 const env = Env.define({
     ORIGIN_URL: { type: 'string' },
     PORT: { type: 'number' },
-    TOKEN_SECRET: { type: 'string' },
+    ACCESS_TOKEN_SECRET: { type: 'string' },
+    ACCESS_TOKEN_EXPIRESIN: { type: 'string' },
+    REFRESH_TOKEN_SECRET: { type: 'string' },
+    REFRESH_TOKEN_EXPIRESIN: { type: 'string' },
     BCRYPT_SALT: { type: 'number', default: 10 },
     DB_HOST: { type: 'string', default: 'localhost' },
     DB_USER: { type: 'string' },

@@ -22,11 +22,11 @@ export const User = db.define('users', {
     created_by: { type: DataTypes.INTEGER, allowNull: true },
 });
 
-export const UserPassword = db.define('user_passwords', {
+export const UserSecret = db.define('user_passwords', {
     user_password: { type: DataTypes.VARCHAR(255), allowNull: false },
     user_id: { type: DataTypes.INTEGER, allowNull: false, unique: true }
 });
-UserPassword.setForeignKey(User, 'user_id');
+UserSecret.setForeignKey(User, 'user_id');
 
 export const UserActivityLogs = db.define('user_activity_logs', {
     ual_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },

@@ -11,10 +11,10 @@ import {
 } from '../controllers/user.controller';
 
 // MIDDLEWARES
-import Authorize from '../middlewares/authorization.middleware';
+// import Authorize from '../middlewares/authorization.middleware';
 
 const userRouter = Router();
-userRouter.use(Authorize.accesstoken);
+// userRouter.use(Authorize.accesstoken);
 
 userRouter.route('/')
     .post(createUserHandler)

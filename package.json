@@ -16,8 +16,10 @@
   "author": "harrypoggers25",
   "license": "ISC",
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.16.0",
     "typescript": "^5.9.3"
   },
@@ -28,6 +30,7 @@
     "@harrypoggers25/env": "^1.0.0",
     "@harrypoggers25/route": "^1.0.4",
     "bcrypt-ts": "^8.0.1",
+    "cookie-parser": "^1.4.7",
     "jsonwebtoken": "^9.0.3"
   }
 }

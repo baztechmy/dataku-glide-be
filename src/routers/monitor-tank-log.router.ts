@@ -1,4 +1,7 @@
+// MODULES
 import { Router } from 'express';
+
+// CONTROLLERS
 import {
     createMonitorTankLogHandler,
     findAllMonitorTankLogHandler,
@@ -6,7 +9,11 @@ import {
     findAllMonitorTankLogByDateHandler
 } from '../controllers/monitor-tank-log.controller';
 
+// MIDDLEWARES
+import Authorize from '../middlewares/authorization.middleware';
+
 const monitorTankLogRouter = Router();
+monitorTankLogRouter.use(Authorize.accesstoken);
 
 monitorTankLogRouter.route('/')
     .post(createMonitorTankLogHandler)

@@ -1,4 +1,7 @@
+// MODULES
 import { Router } from 'express';
+
+// CONTROLLERS
 import {
     createMonitorTankHandler,
     findMonitorTankHandler,
@@ -7,7 +10,11 @@ import {
     deleteMonitorTankHandler
 } from '../controllers/monitor-tank.controller';
 
+// MIDDLEWARES
+import Authorize from '../middlewares/authorization.middleware';
+
 const monitorTankRouter = Router();
+monitorTankRouter.use(Authorize.accesstoken);
 
 monitorTankRouter.route('/')
     .post(createMonitorTankHandler)

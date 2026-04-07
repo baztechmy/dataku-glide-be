@@ -1,4 +1,7 @@
+// MIDDLEWARES
 import { Router } from 'express';
+
+// CONTROLLERS
 import {
     createUserHandler,
     findUserHandler,
@@ -7,7 +10,11 @@ import {
     deleteUserHandler
 } from '../controllers/user.controller';
 
+// MIDDLEWARES
+import Authorize from '../middlewares/authorization.middleware';
+
 const userRouter = Router();
+userRouter.use(Authorize.accesstoken);
 
 userRouter.route('/')
     .post(createUserHandler)

@@ -3,7 +3,6 @@ import Route from "@harrypoggers25/route";
 
 // CONFIGS
 import { db, MonitorTankLog } from "../configs/db.config";
-import { Pool } from "@harrypoggers25/db-postgresql";
 
 function generateDate(year: number, month: number, day: number): string {
     const date = new Date(year, month - 1, day);

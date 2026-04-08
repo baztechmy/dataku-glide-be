@@ -49,8 +49,7 @@ export const MonitorTank = db.define('monitor_tanks', {
 
 export const MonitorTankLog = db.define('monitor_tank_logs', {
     mtl_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },
-    mtl_raw_data1: { type: DataTypes.TEXT, allowNull: false },
-    mtl_raw_data2: { type: DataTypes.TEXT, allowNull: false },
+    mtl_raw_data: { type: DataTypes.TEXT, allowNull: false },
     mtl_level: { type: DataTypes.VARCHAR(511), allowNull: false },
     mtl_temp: { type: DataTypes.VARCHAR(511), allowNull: false },
     mtl_humidity: { type: DataTypes.VARCHAR(511), allowNull: false },

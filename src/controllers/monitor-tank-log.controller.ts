@@ -10,10 +10,10 @@ function generateDate(year: number, month: number, day: number): string {
 }
 
 export const createMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {
-    const { mtl_id, mtl_raw_data1, mtl_raw_data2, mtl_level, mtl_temp, mtl_humidity, mt_id } = req.body;
+    const { mtl_id, mtl_raw_data, mtl_level, mtl_temp, mtl_humidity, mt_id } = req.body;
     const mtl_date = new Date();
 
-    const mtl = await MonitorTankLog.create({ mtl_id, mtl_raw_data1, mtl_raw_data2, mtl_level, mtl_temp, mtl_humidity, mtl_date, mt_id });
+    const mtl = await MonitorTankLog.create({ mtl_id, mtl_raw_data, mtl_level, mtl_temp, mtl_humidity, mtl_date, mt_id });
     if (!mtl) throw new Error('Failed to create new monitor tank log');
 
     res.status(201).json(mtl);

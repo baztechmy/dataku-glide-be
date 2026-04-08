@@ -14,6 +14,7 @@ namespace Mqtt {
         private client: mqtt.MqttClient | null;
         private subscribedTopicHandlers: Record<string, (message: string) => Promise<void>>;
         private showMessage: boolean;
+        private newTopics: Array<string>;
 
         constructor(config: MqttClientConfig, options?: MqttClientOptions) {
             options = {
@@ -24,6 +25,7 @@ namespace Mqtt {
             this.client = null;
             this.subscribedTopicHandlers = {};
             this.showMessage = options.showMessage!;
+            this.newTopics = [];
 
             this.connect(config);
         }
@@ -50,6 +52,13 @@ namespace Mqtt {
                     });
 
                     client.on('message', async (topic, message) => {
+                        if (this.newTopics.some(newTopic => newTopic === topic)) {
+                            const index = this.newTopics.indexOf(topic);
+                            if (index !== -1) this.newTopics.splice(index, 1);
+
+                            console.log(ch.green('MQTT SUBSCRIBE:'), `Client subscribed to MQTT topic ${topic}`);
+                        }
+
                         if (this.showMessage) console.log(ch.yellow(`MQTT MESSAGE [${topic}]:`), `Client received message '${message.toString()}'`);
                         await this.subscribedTopicHandlers[topic](message.toString());
                     });
@@ -86,15 +95,19 @@ namespace Mqtt {
                 console.log(ch.red('MQTT SUBSCRIBE ERROR:'), `Client is already subscribed to the MQTT topic '${topic}'`);
                 return;
             }
+            if (this.newTopics.some(oldTopic => oldTopic === topic)) {
+                console.log(ch.red('MQTT TOPIC DUPLICATE:'), `Client is already connecting to the MQTT topic '${topic}'`);
+                return;
+            }
 
+            this.newTopics.push(topic);
+            this.subscribedTopicHandlers[topic] = handler;
             this.client.subscribe(topic, (error: any) => {
                 if (error) {
                     console.log(ch.red('MQTT SUBSCRIBE ERROR:'), error.message ?? error);
+                    delete this.subscribedTopicHandlers[topic];
                     return;
                 }
-
-                this.subscribedTopicHandlers[topic] = handler;
-                console.log(ch.green('MQTT SUBSCRIBE:'), `Client subscribed to MQTT topic ${topic}`);
             });
         }
 

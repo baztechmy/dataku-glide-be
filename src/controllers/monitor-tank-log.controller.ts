@@ -34,13 +34,11 @@ export const findAllMonitorTankLogByDateHandler = Route.asyncHandler(async (req,
     }
 
     const [year, month] = [+req.params.mtl_year, +req.params.mtl_month];
-    const response = await db.pool.query(
-        'SELECT * FROM monitor_tank_logs ' +
-        `WHERE mtl_date >= DATE '${generateDate(year, month, 1)}' AND mtl_date <  DATE '${generateDate(year, month + 1, 1)}' ORDER BY mtl_id ASC;`
-    );
-    if (!Pool.isSuccess(response)) throw new Error(`Failed to find all monitor tank logs [${year},${month}]`);
-
-    const mtls = response.rows as Array<ReturnType<typeof MonitorTankLog.getEmptyModel>>
+    const mtls = await MonitorTankLog.find({
+        where: `mtl_date >= DATE '${generateDate(year, month, 1)}' AND mtl_date <  DATE '${generateDate(year, month + 1, 1)}'`,
+        orderBy: { mtl_id: 'ASC' }
+    });
+    if (!mtls) throw new Error(`Failed to find all monitor tank logs [${year},${month}]`);
 
     res.status(200).json(mtls);
 });

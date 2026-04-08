@@ -1,10 +1,11 @@
+import router from "./routers";
+
 // MODULES
 import App from "@harrypoggers25/app-express";
 import cookieParser from 'cookie-parser';
 
 // CONFIGS
 import env from "./configs/env.config";
-import router from "./routers";
 import { db } from "./configs/db.config";
 
 App.listen({

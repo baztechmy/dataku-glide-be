@@ -10,7 +10,8 @@
     "tbr": "tsc && node dist/test/test.js",
     "sinitbr": "tsc && node dist/scripts/env.script.js && node dist/scripts/db.script.js",
     "senvbr": "tsc && node dist/scripts/env.script.js",
-    "sdbbr": "tsc && node dist/scripts/db.script.js"
+    "sdbbr": "tsc && node dist/scripts/db.script.js",
+    "sbackupbr": "tsc && node dist/scripts/backup.script.js"
   },
   "keywords": [],
   "author": "harrypoggers25",

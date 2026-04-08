@@ -31,6 +31,7 @@
     "@harrypoggers25/route": "^1.0.4",
     "bcrypt-ts": "^8.0.1",
     "cookie-parser": "^1.4.7",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "mqtt": "^5.15.1"
   }
 }

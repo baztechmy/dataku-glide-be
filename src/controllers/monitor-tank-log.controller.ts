@@ -42,6 +42,17 @@ export const findAllMonitorTankLogByDateHandler = Route.asyncHandler(async (req,
     res.status(200).json(mtls);
 });
 
+export const findLatestMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {
+    const mtls = await MonitorTankLog.find({
+        orderBy: { mtl_date: 'DESC' },
+        limit: 1
+    });
+    if (!mtls) throw new Error('Failed to find latest monitor tank log');
+    if (!mtls.length) throw new Error('No monitor tank log data found');
+
+    res.status(200).json(mtls[0]);
+});
+
 export const deleteMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {
     const mtl_id = +req.params.mtl_id;
     const mtl = await MonitorTankLog.deleteByPk(mtl_id);

@@ -40,7 +40,7 @@ UserActivityLogs.setForeignKey(User, 'user_id');
 
 export const MonitorTank = db.define('monitor_tanks', {
     mt_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },
-    mt_name: { type: DataTypes.VARCHAR(255), allowNull: false },
+    mt_name: { type: DataTypes.VARCHAR(255), allowNull: false, unique: true },
     mt_height: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
     mt_diameter: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
     sensor_ids: { type: DataTypes.TEXT, allowNull: false, },

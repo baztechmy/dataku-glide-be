@@ -29,14 +29,14 @@ export const UserSecret = db.define('user_secrets', {
 });
 UserSecret.setForeignKey(User, 'user_id');
 
-export const UserActivityLogs = db.define('user_activity_logs', {
+export const UserActivityLog = db.define('user_activity_logs', {
     ual_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },
     ual_activity: { type: DataTypes.VARCHAR(511), allowNull: false },
     ual_ip: { type: DataTypes.VARCHAR(255), allowNull: false },
     ual_date: { type: DataTypes.TIMESTAMP, allowNull: false },
     user_id: { type: DataTypes.INTEGER, allowNull: false },
 });
-UserActivityLogs.setForeignKey(User, 'user_id');
+UserActivityLog.setForeignKey(User, 'user_id');
 
 export const MonitorTank = db.define('monitor_tanks', {
     mt_id: { type: DataTypes.SERIAL, allowNull: false, primaryKey: true },

@@ -28,9 +28,13 @@
 - Postgresql
 
 ## Procedures:
-1. Run `npm run senvbr` to initialize the *.env* file
-2. Configure the *.env* file accordingly
-3. Run `npm run sdbbr` to initialize the database schemas and tables
+1. Open the *.npmrc* file, and add the authorization key
+> Token must be requested from the npm module author @harrypoggers25
+2. Run `npm run install` to install all the required packages
+> Typescript must be installed prior to this script. Run `npm install -g typescript` to install it globally
+3. Run `npm run senvbr` to initialize the *.env* file
+4. Configure the *.env* file accordingly
+5. Run `npm run sdbbr` to initialize the database schemas and tables
 > The database must be created prior to this script. DB_NAME from the *.env* configuration must match the name of the database
-4. Import the previous database data via sql script (must request from author)
-5. Run `npm run br` to start the system
+6. Import the previous database data via sql script (must request from author)
+7. Run `npm run br` to start the system

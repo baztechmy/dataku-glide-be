@@ -33,9 +33,9 @@ App.listen({
                 try {
                     const mtl_date = new Date();
                     const raw_data = JSON.parse(mtl_raw_data);
-                    const mtl_level = !raw_data.distance ? 'N/A' : raw_data.distance;
-                    const mtl_temp = !raw_data.temperature ? 'N/A' : raw_data.temperature;
-                    const mtl_humidity = !raw_data.humidity ? 'N/A' : raw_data.humidity;
+                    const mtl_level = raw_data.distance ?? 'N/A';
+                    const mtl_temp = raw_data.temperature ?? 'N/A';
+                    const mtl_humidity = raw_data.humidity ?? 'N/A';
                     const monitorTankLog = await MonitorTankLog.create({ mtl_raw_data, mtl_level, mtl_temp, mtl_humidity, mtl_date, mt_id });
                     if (!monitorTankLog) throw new Error('Failed to insert raw data to database');
                 } catch (error: any) {

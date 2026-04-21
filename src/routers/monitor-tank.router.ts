@@ -14,14 +14,13 @@ import {
 import Authorize from '../middlewares/authorization.middleware';
 
 const monitorTankRouter = Router();
-monitorTankRouter.use(Authorize.accesstoken);
 
 monitorTankRouter.route('/')
-    .post(createMonitorTankHandler)
+    .post(Authorize.accesstoken, createMonitorTankHandler)
     .get(findAllMonitorTankHandler);
 monitorTankRouter.route('/:mt_id')
     .get(findMonitorTankHandler)
-    .patch(updateMonitorTankHandler)
-    .delete(deleteMonitorTankHandler);
+    .patch(Authorize.accesstoken, updateMonitorTankHandler)
+    .delete(Authorize.accesstoken, deleteMonitorTankHandler);
 
 export default monitorTankRouter;

@@ -3,7 +3,7 @@ import { User, UserSecret, UserActivityLog, MonitorTank, MonitorTankLog } from "
 
 (async () => {
     const append = true;
-    const path = './database/dataku-glide-v3.sql';
+    const path = './database/dataku-glide-v4.sql';
 
     const users = await User.backup(path, { fixSequence: 'user_id', orderBy: { user_id: 'ASC' } });
     if (!users) return;

@@ -5,8 +5,8 @@ import Route from "@harrypoggers25/route";
 import { MonitorTank } from "../configs/db.config";
 
 export const createMonitorTankHandler = Route.asyncHandler(async (req, res) => {
-    const { mt_id, mt_name, mt_height, mt_diameter, sensor_ids, gateway_id } = req.body;
-    const monitorTank = await MonitorTank.create({ mt_id, mt_name, mt_height, mt_diameter, sensor_ids, gateway_id });
+    const { mt_id, mt_name, mt_height, mt_diameter, mt_topic, sensor_ids, gateway_id } = req.body;
+    const monitorTank = await MonitorTank.create({ mt_id, mt_name, mt_height, mt_diameter, mt_topic, sensor_ids, gateway_id });
     if (!monitorTank) throw new Error('Failed to create new monitor tank');
 
     res.status(201).json(monitorTank);
@@ -29,9 +29,9 @@ export const findAllMonitorTankHandler = Route.asyncHandler(async (req, res) => 
 
 export const updateMonitorTankHandler = Route.asyncHandler(async (req, res) => {
     const mt_id = +req.params.mt_id;
-    const { mt_name, mt_height, mt_diameter, sensor_ids, gateway_id } = req.body;
+    const { mt_name, mt_height, mt_diameter, mt_topic, sensor_ids, gateway_id } = req.body;
 
-    const monitorTank = await MonitorTank.updateByPk(mt_id, { mt_name, mt_height, mt_diameter, sensor_ids, gateway_id });
+    const monitorTank = await MonitorTank.updateByPk(mt_id, { mt_name, mt_height, mt_diameter, mt_topic, sensor_ids, gateway_id });
     if (!monitorTank) throw new Error(`Failed to update monitor tank [${mt_id}]`);
 
     res.status(200).json(monitorTank);

@@ -28,8 +28,10 @@ App.listen({
         }
 
         for (const mt of monitorTanks) {
-            const { mt_name, mt_id } = mt;
-            mqttClient.subscribe(`glide/A84041FDFE27EB10/${mt_name}`, async (mtl_raw_data) => {
+            const { mt_id, mt_name, mt_topic } = mt;
+            // glide/A84041FDFE27EB10/${mt_name}
+            if (!mt_topic) continue;
+            mqttClient.subscribe(mt_topic, async (mtl_raw_data) => {
                 try {
                     const mtl_date = new Date();
                     const raw_data = JSON.parse(mtl_raw_data);

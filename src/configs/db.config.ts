@@ -43,6 +43,7 @@ export const MonitorTank = db.define('monitor_tanks', {
     mt_name: { type: DataTypes.VARCHAR(255), allowNull: false, unique: true },
     mt_height: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
     mt_diameter: { type: DataTypes.DOUBLE_PRECISION, allowNull: false },
+    mt_topic: { type: DataTypes.TEXT, allowNull: true },
     sensor_ids: { type: DataTypes.TEXT, allowNull: false, },
     gateway_id: { type: DataTypes.VARCHAR(255), allowNull: false },
 });

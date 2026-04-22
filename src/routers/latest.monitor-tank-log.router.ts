@@ -3,12 +3,12 @@ import { Router } from 'express';
 
 // CONTROLLERS
 import {
-    findLatestMonitorTankLogHandler
+    findAllLatestMonitorTankLogHandler
 } from '../controllers/monitor-tank-log.controller';
 
 const latestMonitorTankLogRouter = Router();
 
 latestMonitorTankLogRouter.route('/')
-    .get(findLatestMonitorTankLogHandler);
+    .get(findAllLatestMonitorTankLogHandler);
 
 export default latestMonitorTankLogRouter;

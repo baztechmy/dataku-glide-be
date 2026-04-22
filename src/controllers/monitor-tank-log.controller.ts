@@ -2,7 +2,7 @@
 import Route from "@harrypoggers25/route";
 
 // CONFIGS
-import { db, MonitorTankLog } from "../configs/db.config";
+import { db, MonitorTank, MonitorTankLog } from "../configs/db.config";
 
 function generateDate(year: number, month: number, day: number): string {
     const date = new Date(year, month - 1, day);
@@ -42,15 +42,30 @@ export const findAllMonitorTankLogByDateHandler = Route.asyncHandler(async (req,
     res.status(200).json(mtls);
 });
 
-export const findLatestMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {
-    const mtls = await MonitorTankLog.find({
-        orderBy: { mtl_date: 'DESC' },
-        limit: 1
-    });
-    if (!mtls) throw new Error('Failed to find latest monitor tank log');
-    if (!mtls.length) throw new Error('No monitor tank log data found');
+export const findAllLatestMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {
+    const transaction = await db.transaction({ rollbackOnError: true });
+    const mts = await MonitorTank.find({ orderBy: { mt_id: 'ASC' }, transaction });
+    if (!mts) throw new Error(`Failed to find all latest monitor tank logs. Unable to fetch all monitor tank`);
 
-    res.status(200).json(mtls[0]);
+    const mtls: Array<any> = [];
+    for (const mt of mts) {
+        const { mt_id } = mt;
+        const mtl = await MonitorTankLog.find({
+            where: { mt_id },
+            orderBy: { mtl_date: 'DESC' },
+            limit: 1
+        });
+        if (!mtl) throw new Error(`Failed to find latest monitor log. Unable to fetch latest monitor tank log { mt_id: ${mt_id} }`);
+        if (!mtl.length) continue;
+
+        mtls.push(mtl[0]);
+    }
+    if (!mtls.length) {
+        res.status(404);
+        throw new Error('No monitor tank log data found');
+    }
+
+    res.status(200).json(mtls);
 });
 
 export const deleteMonitorTankLogHandler = Route.asyncHandler(async (req, res) => {

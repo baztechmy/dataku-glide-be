@@ -53,7 +53,8 @@ export const findAllLatestMonitorTankLogHandler = Route.asyncHandler(async (req,
         const mtl = await MonitorTankLog.find({
             where: { mt_id },
             orderBy: { mtl_date: 'DESC' },
-            limit: 1
+            limit: 1,
+            transaction
         });
         if (!mtl) throw new Error(`Failed to find latest monitor log. Unable to fetch latest monitor tank log { mt_id: ${mt_id} }`);
         if (!mtl.length) continue;
@@ -61,10 +62,12 @@ export const findAllLatestMonitorTankLogHandler = Route.asyncHandler(async (req,
         mtls.push(mtl[0]);
     }
     if (!mtls.length) {
+        await transaction.rollback();
         res.status(404);
         throw new Error('No monitor tank log data found');
     }
 
+    await transaction.commit()
     res.status(200).json(mtls);
 });
 

@@ -12,7 +12,7 @@ import { mqttClient } from "./configs/mqtt.config"
 
 App.listen({
     port: env.PORT,
-    version: '1.0.2',
+    version: '1.0.3',
     cors: [env.ORIGIN_URL],
     beforeListen: async (app) => {
         app.use(cookieParser());
